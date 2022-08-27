@@ -20,10 +20,10 @@ jobs:
       run: cd pafish/ && make -f Makefile64.linux
 
     - name: Zip x86 Binaries
-      run: 7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=32m -mhe=on -p"87goff57qScYw57CCV" pafish_x86.7z pafish/Output/MingW/pafish.exe
+      run: 7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=32m -mhe=on -p"87goff57qScYw57CCV" pafish_x86.7z ./pafish/Output/MingW/pafish.exe
 
     - name: Zip x64 Binaries
-      run: 7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=32m -mhe=on -p"87goff57qScYw57CCV" pafish_x64.7z pafish/Output/MingW/pafish64.exe
+      run: 7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=32m -mhe=on -p"87goff57qScYw57CCV" pafish_x64.7z ./pafish/Output/MingW/pafish64.exe
         
     - name: Upload x86 Binaries
       uses: actions/upload-artifact@v1
