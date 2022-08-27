@@ -36,3 +36,10 @@ jobs:
       with:
           name: x64
           path: "pafish_x64.7z"
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+          files: |
+            pafish_x86.7z
+            pafish_x64.7z
