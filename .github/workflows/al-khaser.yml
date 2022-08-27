@@ -36,3 +36,12 @@ jobs:
       with:
           name: x64
           path: "al-khaser_x64.7z"
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+          tag_name: "Al-Khaser-${{ github.run_id }}"
+          body: "Password:yug69gG89T98HGUY8y"
+          files: |
+            al-khaser_x86.7z
+            al-khaser_x64.7z
