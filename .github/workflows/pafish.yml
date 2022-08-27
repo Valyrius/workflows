@@ -40,6 +40,8 @@ jobs:
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
+          tag_name: "Pafish-${{ github.run_id }}"
+          body: "Password:87goff57qScYw57CCV"
           files: |
             pafish_x86.7z
             pafish_x64.7z
