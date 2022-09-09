@@ -1,0 +1,60 @@
+name: CyberFSR2
+on: workflow_dispatch
+env:
+  SOLUTION_FILE_PATH: CyberFSR.sln
+  BUILD_CONFIGURATION: Release
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Setup repo
+      uses: actions/checkout@v3
+      with:
+        repository: "PotatoOfDoom/CyberFSR2"
+        submodules: recursive
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+    
+    - name: Prepare Vulkan SDK
+      uses: humbletim/setup-vulkan-sdk@v1.2.0
+      with:
+        vulkan-query-version: latest
+        vulkan-components: Vulkan-Headers, Vulkan-Loader
+        vulkan-use-cache: true
+
+    - name: Generate Solution
+      working-directory: ${{ github.workspace }}\external\FidelityFX-FSR2\build
+      run: .\GenerateSolutions.bat
+
+    - name: Build for DirectX 12
+      working-directory: ${{ github.workspace }}\external\FidelityFX-FSR2\build\DX12
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} FSR2_Sample_DX12.sln
+
+    - name: Build for Vulkan
+      working-directory: ${{ github.workspace }}\external\FidelityFX-FSR2\build\VK
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} FSR2_Sample_VK.sln
+
+    - name: Build
+      working-directory: ${{ github.workspace }}
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+
+    - name: Join Files
+      run: |
+        mkdir joined\bin\x64 \
+        && move x64\Release\nvngx.dll joined\bin\x64 \
+        && move nvngx.ini joined\bin\x64 \
+        && move *SignatureOverride.reg joined
+
+    - name: ZIP Joined
+      run: 7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=32m -mhe=on -p"xk4ebDutBNv63bdpak" CyberFSR2.7z joined
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+          tag_name: "CyberFSR2-${{ github.run_id }}"
+          body: "Password:xk4ebDutBNv63bdpak"
+          files: |
+            CyberFSR2.7z
