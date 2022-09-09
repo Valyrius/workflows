@@ -43,10 +43,10 @@ jobs:
 
     - name: Join Files
       run: |
-        mkdir joined\bin\x64 \
-        && move x64\Release\nvngx.dll joined\bin\x64 \
-        && move nvngx.ini joined\bin\x64 \
-        && move *SignatureOverride.reg joined
+        mkdir joined\bin\x64
+        move x64\Release\nvngx.dll joined\bin\x64
+        move nvngx.ini joined\bin\x64
+        move *SignatureOverride.reg joined
 
     - name: ZIP Joined
       run: 7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=32m -mhe=on -p"xk4ebDutBNv63bdpak" CyberFSR2.7z joined
