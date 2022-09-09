@@ -49,7 +49,7 @@ jobs:
         move *SignatureOverride.reg joined
 
     - name: ZIP Joined
-      run: 7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=32m -mhe=on -p"xk4ebDutBNv63bdpak" CyberFSR2.7z joined
+      run: 7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=32m -mhe=on -p"xk4ebDutBNv63bdpak" CyberFSR2.7z joined\*
 
     - name: Release
       uses: softprops/action-gh-release@v1
