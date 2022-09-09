@@ -11,7 +11,7 @@ jobs:
         repository: "a0rtega/pafish"
 
     - name: Install MinGW
-      uses: egor-tensin/setup-mingw@v1
+      uses: egor-tensin/setup-mingw@v2
 
     - name: Build x86
       run: cd pafish/ && make -f Makefile.linux
