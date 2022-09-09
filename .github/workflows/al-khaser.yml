@@ -1,4 +1,4 @@
-name: Build-al-khaser
+name: Al-Khaser
 on: workflow_dispatch
 jobs:
   build:
