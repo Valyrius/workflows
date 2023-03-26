@@ -50,12 +50,11 @@ jobs:
 
     - name: ZIP Joined
       working-directory: ${{ github.workspace }}\joined
-      run: 7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=32m -mhe=on -p"xk4ebDutBNv63bdpak" CyberFSR2.7z *
+      run: 7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=32m -mhe=on CyberFSR2.7z *
 
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
           tag_name: "CyberFSR2-${{ github.run_id }}"
-          body: "Password:xk4ebDutBNv63bdpak"
           files: |
-            joined\CyberFSR2.7z
+            joined/CyberFSR2.7z
