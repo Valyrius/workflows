@@ -24,7 +24,7 @@ jobs:
 
     - name: Restore vcpkg packages
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: vcpkg integrate instal
+      run: vcpkg integrate install
 
     - name: Run CMake consuming CMakePreset.json and run vcpkg to build packages
       uses: lukka/run-cmake@v10
