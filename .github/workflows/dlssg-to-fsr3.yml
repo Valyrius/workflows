@@ -24,12 +24,14 @@ jobs:
 
     - name: Setup anew (or from cache) vcpkg (and does not build any package)
       uses: lukka/run-vcpkg@v11
+      with:
+        vcpkgDirectory: '${{ github.workspace }}'
 
     - name: Run CMake consuming CMakePreset.json and run vcpkg to build packages
       uses: lukka/run-cmake@v10
       with:
-          configurePreset: 'final-universal'
-          buildPreset: 'final-universal-release'
+        configurePreset: 'final-universal'
+        buildPreset: 'final-universal-release'
 
     - name: Packing
       run: 7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=32m -mhe=on dlssg-to-fsr3.7z ${{ github.workspace }}\bin\*
